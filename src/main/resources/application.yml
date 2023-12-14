@@ -3,16 +3,16 @@ server:
 
 spring:
   liquibase:
+    default-schema: currency_exchange
+    change-log: classpath:db/changelog_init.xml
     enabled: true
     drop-first: true
-    default-schema: public
-    change-log: classpath:db/changelog_init.xml
 
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: postgres
+    password: skillbox
   jpa:
     properties:
       hibernate:
