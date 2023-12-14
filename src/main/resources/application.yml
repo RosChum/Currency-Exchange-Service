@@ -20,4 +20,5 @@ spring:
         show_sql: true
         hbm2ddl:
           auto: none
+        default_schema: currency_exchange
 
