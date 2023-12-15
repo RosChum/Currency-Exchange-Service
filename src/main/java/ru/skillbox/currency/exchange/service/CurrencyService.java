@@ -18,6 +18,7 @@ public class CurrencyService {
     public CurrencyDto getById(Long id) {
         log.info("CurrencyService method getById executed");
         Currency currency = repository.findById(id).orElseThrow(() -> new RuntimeException("Currency not found with id: " + id));
+
         return mapper.convertToDto(currency);
     }
 
