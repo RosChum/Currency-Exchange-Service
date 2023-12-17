@@ -22,5 +22,5 @@ spring:
           auto: none
         default_schema: currency_exchange
 
-currency-resourse: ${FILE_RESOURCE:classpath:.\src\main\resources\cbr-xml-daily.ru_daily_utf8.xml}
+currency-resourse: classpath:.\src\main\resources\cbr-xml-daily.ru_daily_utf8.xml
 
