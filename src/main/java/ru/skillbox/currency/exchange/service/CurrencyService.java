@@ -9,7 +9,7 @@ import ru.skillbox.currency.exchange.dto.ShortCurrencyDto;
 import ru.skillbox.currency.exchange.entity.Currency;
 import ru.skillbox.currency.exchange.mapper.CurrencyMapper;
 import ru.skillbox.currency.exchange.repository.CurrencyRepository;
-import ru.skillbox.currency.exchange.util.UpdateResourceAndDB;
+import ru.skillbox.currency.exchange.util.UpdateResourceFileAndDB;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,15 +20,11 @@ import java.util.stream.Collectors;
 public class CurrencyService {
     private final CurrencyMapper mapper;
     private final CurrencyRepository repository;
+    private final UpdateResourceFileAndDB updateResourceAndDB;
 
     public CurrencyDto getById(Long id) {
         log.info("CurrencyService method getById executed");
         Currency currency = repository.findById(id).orElseThrow(() -> new RuntimeException("Currency not found with id: " + id));
-        try {
-            UpdateResourceAndDB.updateFile();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
         return mapper.convertToDto(currency);
     }
 

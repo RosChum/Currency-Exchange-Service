@@ -6,7 +6,7 @@ spring:
     default-schema: currency_exchange
     change-log: classpath:db/changelog_init.xml
     enabled: true
-    drop-first: true
+    drop-first: false
 
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -22,5 +22,5 @@ spring:
           auto: none
         default_schema: currency_exchange
 
-currency-resourse: classpath:.\src\main\resources\cbr-xml-daily.ru_daily_utf8.xml
+currency-resource: .\src\main\resources\cbr-xml-daily.ru_daily_utf8.xml
 
