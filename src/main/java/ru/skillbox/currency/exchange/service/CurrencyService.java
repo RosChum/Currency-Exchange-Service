@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class CurrencyService {
     private final CurrencyMapper mapper;
     private final CurrencyRepository repository;
-    private final UpdateResourceFileAndDB updateResourceAndDB;
 
     public CurrencyDto getById(Long id) {
         log.info("CurrencyService method getById executed");

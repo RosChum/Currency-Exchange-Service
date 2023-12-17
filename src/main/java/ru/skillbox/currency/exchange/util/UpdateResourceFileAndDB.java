@@ -45,11 +45,13 @@ public class UpdateResourceFileAndDB {
     @Async
     @Scheduled(cron = "@hourly")
     public void updateFile() {
+        log.info("Start method updateFile");
         try {
             Document document = Jsoup.connect(URL).ignoreHttpErrors(false).get();
             Path path = Paths.get(resourceFile);
             byte[] text = document.toString().getBytes();
             Files.write(path, text);
+            log.info("UpdateFile " + document);
             updateDB();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -59,6 +61,7 @@ public class UpdateResourceFileAndDB {
 
     private void updateDB() {
         try {
+            log.info("Start method updateDB");
             JAXBContext jaxbContext = JAXBContext.newInstance(ValCurs.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             ValCurs valCurs = (ValCurs) unmarshaller.unmarshal(new InputStreamReader
@@ -66,6 +69,7 @@ public class UpdateResourceFileAndDB {
             List<Currency> currencyList = valCurs.getValuteList().stream()
                     .map(valute -> currencyMapper.convertFromValuteToEntity(valute)).collect(Collectors.toList());
             currencyRepository.saveAll(currencyList);
+            log.info("UpdateDB" + valCurs.getValuteList());
         } catch (JAXBException | FileNotFoundException e) {
             throw new RuntimeException(e);
         }
