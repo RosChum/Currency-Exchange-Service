@@ -3,6 +3,7 @@ package ru.skillbox.currency.exchange.util;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,9 @@ public class UpdateResourceFileAndDB {
 
     private static final String URL = "https://www.cbr-xml-daily.ru/daily_utf8.xml";
 
-    @Async
-    @Scheduled(cron = "@hourly")
+    @Scheduled(cron = "0 * * * * *")
+    @SchedulerLock(name = "TaskScheduler_scheduledTask",
+    lockAtLeastFor = "PT20M", lockAtMostFor = "PT30M")
     public void updateFile() {
         log.info("Start method updateFile");
         try {
